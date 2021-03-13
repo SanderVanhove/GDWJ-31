@@ -7,8 +7,8 @@
 extents = Vector2( 10.0044, 32.1466 )
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 16.1271
-height = 42.2573
+radius = 21.1954
+height = 29.3145
 
 [node name="cactus" type="StaticBody2D"]
 script = ExtResource( 1 )

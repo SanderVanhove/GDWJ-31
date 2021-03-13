@@ -14,9 +14,6 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="collision_shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -25,7 +22,7 @@ shape = SubResource( 1 )
 position = Vector2( -13.0097, 0.372025 )
 
 [node name="magnet" parent="." instance=ExtResource( 4 )]
-position = Vector2( 8.39597, 3.2542 )
+position = Vector2( -10.354, 8.1292 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 0, 13 )

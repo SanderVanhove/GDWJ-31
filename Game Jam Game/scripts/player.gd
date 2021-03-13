@@ -32,7 +32,7 @@ var starting_position = Vector2()
 
 # state machine
 var state = states.REGULAR
-var item = items.BLOWDRYER
+var item = items.NONE
 
 # direction the player is facing
 var direction = 1
