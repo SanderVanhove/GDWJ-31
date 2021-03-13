@@ -47,7 +47,7 @@ func _physics_process(delta):
 			velocity.y += gravity
 
 			# jumping
-			if Input.is_action_pressed("ui_up"):
+			if Input.is_action_just_pressed("ui_up"):
 				if is_on_floor():
 						velocity.y += input_map.up * jump_height
 		# blowdryer code

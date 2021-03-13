@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends RigidBody2D
 
 signal blow_back(pos)
 
