@@ -50,5 +50,6 @@ func _physics_process(delta):
 						velocity.y = input_map.up * jump_height
 		# blowdryer code
 #		states.NO_GRAVITY:
+	
 	# changing position
 	move_and_slide(velocity, UP)
