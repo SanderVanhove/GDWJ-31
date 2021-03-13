@@ -21,7 +21,7 @@ __meta__ = {
 [node name="collision_shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="hairdryer" parent="." instance=ExtResource( 3 )]
+[node name="blowdryer" parent="." instance=ExtResource( 3 )]
 position = Vector2( -13.0097, 0.372025 )
 
 [node name="magnet" parent="." instance=ExtResource( 4 )]

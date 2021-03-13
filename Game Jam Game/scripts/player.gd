@@ -17,6 +17,7 @@ onready var _raycast: RayCast2D = $RayCast2D
 onready var _drop_shadow: Sprite = $Dropshadow
 
 enum states {REGULAR, NO_GRAVITY}
+enum items {NONE, MAGNET, BLOWDRYER}
 
 # for messing with the inputs
 var input_map = {"right": 1,
@@ -31,6 +32,7 @@ var starting_position = Vector2()
 
 # state machine
 var state = states.REGULAR
+var item = items.BLOWDRYER
 
 # direction the player is facing
 var direction = 1
@@ -40,35 +42,61 @@ func _ready():
 
 func _physics_process(delta):
 	# resetting velocity
-
-	# left and right movement
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += input_map.right * movement_speed
-	elif Input.is_action_pressed("ui_left"):
-		velocity.x += input_map.left * movement_speed
-	else:
-		velocity.x = lerp(velocity.x, 0, FRICTION)
+	
+	# jumping
+	if Input.is_action_just_pressed("ui_up"):
+		if is_on_floor():
+				velocity.y += input_map.up * jump_height
 
 	# STATE MACHINEEEEE YOOOOOOOOOOOOOOOOOOOOOOOOOO
 	match state:
 		states.REGULAR:
 			# gravity
 			velocity.y += gravity
-
-			# jumping
-			if Input.is_action_just_pressed("ui_up"):
+				# left and right movement
+			if Input.is_action_pressed("ui_right"):
+				velocity.x += input_map.right * movement_speed
+			elif Input.is_action_pressed("ui_left"):
+				velocity.x += input_map.left * movement_speed
+			else:
 				if is_on_floor():
-						velocity.y += input_map.up * jump_height
-		# blowdryer code
-#		states.NO_GRAVITY:
-
-	# changing position
+					velocity.x = lerp(velocity.x, 0, FRICTION)
+		states.NO_GRAVITY:
+			# setting the movement speed for the different objects in zero grav
+			var move_factor = 0.80
+			if item == items.NONE or item == items.BLOWDRYER:
+				move_factor = 0.01
+			
+			if Input.is_action_pressed("ui_right"):
+				velocity.x += input_map.right * (movement_speed * move_factor)
+			elif Input.is_action_pressed("ui_left"):
+				velocity.x += input_map.left * (movement_speed * move_factor)
+			else:
+				if is_on_floor():
+					velocity.x = lerp(velocity.x, 0, FRICTION)
+	# item state machine
+	match item:
+		items.NONE:
+			$blowdryer.hide()
+			$magnet.hide()
+		items.MAGNET:
+			$blowdryer.hide()
+			$magnet.show()
+			velocity.y += 50
+		items.BLOWDRYER:
+			$blowdryer.show()
+			$magnet.hide()
+#			if state != states.REGULAR:
+			velocity += ODS.length_dir(1, $blowdryer.rotation)
+	
+	# clamping speed
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
-
+	
+	# determining direction
 	direction = -1 if velocity.x < 0 else 1
 	_sprite.flip_h = velocity.x > 0
-
-	velocity = move_and_slide(velocity, UP)
+	
+	velocity = move_and_slide(velocity, UP, false, 4, PI / 4, false)
 
 	position_drop_shadow()
 
@@ -81,4 +109,5 @@ func _die():
 	position = starting_position
 
 func _cactus_blow_back(pos):
-	velocity += Vector2(sign(position.x - pos.x) * 300, -400)
+	velocity.x = sign(position.x - pos.x) * 200
+	velocity.y = -1 * jump_height

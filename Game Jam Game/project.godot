@@ -24,6 +24,10 @@ config/name="Game Jam Game"
 run/main_scene="res://game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+ODS="*res://scripts/ODS_scripts.gd"
+
 [display]
 
 window/size/width=1500
