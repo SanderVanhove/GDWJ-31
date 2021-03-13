@@ -6,13 +6,13 @@ const UP = Vector2(0, -1)
 const FRICTION = .25
 
 # exports
-export var movement_speed := 1
+export var movement_speed := 1500
 export var gravity := 10
 export var jump_height := 400
 export var max_speed := 200
 
 # internal nodes
-onready var _sprite: Sprite = $Sprite
+onready var _sprite: AnimatedSprite = $AnimatedSprite
 onready var _raycast: RayCast2D = $RayCast2D
 onready var _drop_shadow: Sprite = $Dropshadow
 
@@ -42,7 +42,7 @@ func _ready():
 
 func _physics_process(delta):
 	# resetting velocity
-	
+
 	# jumping
 	if Input.is_action_just_pressed("ui_up"):
 		if is_on_floor():
@@ -55,18 +55,28 @@ func _physics_process(delta):
 			velocity.y += gravity
 				# left and right movement
 			if Input.is_action_pressed("ui_right"):
-				velocity.x += input_map.right * movement_speed
+				velocity.x += input_map.right * movement_speed * delta
 			elif Input.is_action_pressed("ui_left"):
-				velocity.x += input_map.left * movement_speed
+				velocity.x += input_map.left * movement_speed * delta
 			else:
 				if is_on_floor():
 					velocity.x = lerp(velocity.x, 0, FRICTION)
+
+			if is_on_floor():
+				if (Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left")):
+					_sprite.animation = "run"
+				else:
+					_sprite.animation = "idle"
+
+				if Input.is_action_just_pressed("ui_up"):
+					_sprite.animation = "jump"
+
 		states.NO_GRAVITY:
 			# setting the movement speed for the different objects in zero grav
 			var move_factor = 0.80
 			if item == items.NONE or item == items.BLOWDRYER:
 				move_factor = 0.01
-			
+
 			if Input.is_action_pressed("ui_right"):
 				velocity.x += input_map.right * (movement_speed * move_factor)
 			elif Input.is_action_pressed("ui_left"):
@@ -74,6 +84,15 @@ func _physics_process(delta):
 			else:
 				if is_on_floor():
 					velocity.x = lerp(velocity.x, 0, FRICTION)
+
+			if is_on_floor():
+				if (Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left")):
+					_sprite.animation = "run"
+				else:
+					_sprite.animation = "idle"
+
+				if Input.is_action_just_pressed("ui_up"):
+						_sprite.animation = "jump"
 	# item state machine
 	match item:
 		items.NONE:
@@ -88,14 +107,14 @@ func _physics_process(delta):
 			$magnet.hide()
 #			if state != states.REGULAR:
 			velocity += ODS.length_dir(1, $blowdryer.rotation)
-	
+
 	# clamping speed
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
-	
+
 	# determining direction
 	direction = -1 if velocity.x < 0 else 1
 	_sprite.flip_h = velocity.x > 0
-	
+
 	velocity = move_and_slide(velocity, UP, false, 4, PI / 4, false)
 
 	position_drop_shadow()
