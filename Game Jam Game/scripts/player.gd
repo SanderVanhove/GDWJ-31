@@ -10,6 +10,9 @@ export var gravity := 10
 export var jump_height := 400
 export var max_speed := 200
 
+# internal nodes
+onready var _sprite: Sprite = $Sprite
+
 enum states {REGULAR, NO_GRAVITY}
 
 # for messing with the inputs
@@ -55,6 +58,7 @@ func _physics_process(delta):
 
 	# changing position
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	_sprite.flip_h = velocity.x > 0
 	velocity = move_and_slide(velocity, UP)
 
 func _die():

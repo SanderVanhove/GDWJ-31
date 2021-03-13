@@ -60,5 +60,6 @@ ui_down={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_clear_color=Color( 0.623529, 0.623529, 0.623529, 1 )
 environment/default_environment="res://default_env.tres"
