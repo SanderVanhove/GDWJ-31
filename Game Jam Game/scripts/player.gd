@@ -18,8 +18,14 @@ var input_map = {"right": 1,
 # go ahead and guess what this is
 var velocity := Vector2()
 
+# starting position
+var starting_position = Vector2()
+
 # state machine
 var state = states.REGULAR
+
+func _ready():
+	starting_position = position
 
 func _physics_process(delta):
 	# resetting velocity
@@ -50,6 +56,11 @@ func _physics_process(delta):
 						velocity.y = input_map.up * jump_height
 		# blowdryer code
 #		states.NO_GRAVITY:
-	
+		
 	# changing position
 	move_and_slide(velocity, UP)
+
+func _die():
+	velocity.y = 0
+	# death animation/particles or whatever
+	position = starting_position
