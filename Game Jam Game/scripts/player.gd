@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 # in case you forgot what up is
 const UP = Vector2(0, -1)
@@ -31,6 +32,9 @@ var starting_position = Vector2()
 # state machine
 var state = states.REGULAR
 
+# direction the player is facing
+var direction = 1
+
 func _ready():
 	starting_position = position
 
@@ -60,7 +64,10 @@ func _physics_process(delta):
 
 	# changing position
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+
+	direction = -1 if velocity.x < 0 else 1
 	_sprite.flip_h = velocity.x > 0
+
 	velocity = move_and_slide(velocity, UP)
 
 	position_drop_shadow()

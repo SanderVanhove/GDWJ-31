@@ -22,9 +22,11 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="hairdryer" parent="." instance=ExtResource( 3 )]
+visible = false
 position = Vector2( -13.0097, 0.372025 )
 
 [node name="magnet" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( 8.39597, 3.2542 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
