@@ -12,6 +12,8 @@ export var max_speed := 200
 
 # internal nodes
 onready var _sprite: Sprite = $Sprite
+onready var _raycast: RayCast2D = $RayCast2D
+onready var _drop_shadow: Sprite = $Dropshadow
 
 enum states {REGULAR, NO_GRAVITY}
 
@@ -60,6 +62,11 @@ func _physics_process(delta):
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	_sprite.flip_h = velocity.x > 0
 	velocity = move_and_slide(velocity, UP)
+
+	position_drop_shadow()
+
+func position_drop_shadow() -> void:
+	_drop_shadow.position = to_local(_raycast.get_collision_point())
 
 func _die():
 	velocity.y = 0
