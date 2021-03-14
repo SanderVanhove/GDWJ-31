@@ -70,7 +70,7 @@ func _physics_process(delta):
 	# jumping
 	if Input.is_action_just_pressed("ui_up"):
 		if is_on_floor():
-				velocity.y += input_map.up * jump_height
+			velocity.y += input_map.up * jump_height
 
 	# STATE MACHINEEEEE YOOOOOOOOOOOOOOOOOOOOOOOOOO
 	match state:
@@ -86,15 +86,6 @@ func _physics_process(delta):
 				if is_on_floor():
 					velocity.x = lerp(velocity.x, 0, FRICTION)
 
-			if is_on_floor():
-				if (Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left")):
-					_sprite.animation = "run"
-				else:
-					_sprite.animation = "idle"
-
-				if Input.is_action_just_pressed("ui_up"):
-					_sprite.animation = "jump"
-
 		states.NO_GRAVITY:
 			# setting the movement speed for the different objects in zero grav
 			var move_factor = 0.80
@@ -109,14 +100,8 @@ func _physics_process(delta):
 				if is_on_floor():
 					velocity.x = lerp(velocity.x, 0, FRICTION)
 
-			if is_on_floor():
-				if (Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left")):
-					_sprite.animation = "run"
-				else:
-					_sprite.animation = "idle"
+	update_animation()
 
-				if Input.is_action_just_pressed("ui_up"):
-						_sprite.animation = "jump"
 	# item state machine
 	match item:
 		items.NONE:
@@ -142,6 +127,22 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, UP, false, 4, PI / 4, false)
 
 	position_drop_shadow()
+
+func update_animation() -> void:
+	var animation = "idle"
+
+	if state == states.REGULAR or state == states.NO_GRAVITY:
+		if is_on_floor():
+			if (Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left")):
+				animation = "run"
+
+		else:
+			animation = "jump"
+
+	if item != items.NONE:
+		animation += "-hold"
+
+	_sprite.play(animation)
 
 func position_drop_shadow() -> void:
 	_drop_shadow.position = to_local(_raycast.get_collision_point())
