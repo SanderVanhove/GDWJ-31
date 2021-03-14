@@ -4,12 +4,14 @@ class_name Player
 # in case you forgot what up is
 const UP = Vector2(0, -1)
 const FRICTION = .25
+const AIR_FRICTION = .98
 
 # exports
 export var movement_speed := 1500
 export var gravity := 10
-export var jump_height := 400
+export var jump_height := 300
 export var max_speed := 200
+export var can_recieve_input: bool = true
 
 # internal nodes
 onready var _sprite: AnimatedSprite = $AnimatedSprite
@@ -95,42 +97,34 @@ func _physics_process(delta):
 	# resetting velocity
 
 	# jumping
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("ui_up") and can_recieve_input:
 		if is_on_floor():
 			velocity.y += input_map.up * jump_height
 			_jump_player.play_random_sound()
 
+	var move_factor = 1
 	# STATE MACHINEEEEE YOOOOOOOOOOOOOOOOOOOOOOOOOO
 	match state:
 		states.REGULAR:
 			# gravity
 			velocity.y += gravity
-				# left and right movement
-			if Input.is_action_pressed("ui_right"):
-				velocity.x += input_map.right * movement_speed * delta
-				direction = 1
-			elif Input.is_action_pressed("ui_left"):
-				velocity.x += input_map.left * movement_speed * delta
-				direction = -1
-			else:
-				if is_on_floor():
-					velocity.x = lerp(velocity.x, 0, FRICTION)
-
 		states.NO_GRAVITY:
 			# setting the movement speed for the different objects in zero grav
-			var move_factor = 0.80
+			move_factor = 0.80
 			if item == items.NONE or item == items.BLOWDRYER:
 				move_factor = 0.01
 
-			if Input.is_action_pressed("ui_right"):
-				velocity.x += input_map.right * (movement_speed * move_factor)
-				direction = 1
-			elif Input.is_action_pressed("ui_left"):
-				velocity.x += input_map.left * (movement_speed * move_factor)
-				direction = -1
-			else:
-				if is_on_floor():
-					velocity.x = lerp(velocity.x, 0, FRICTION)
+	if Input.is_action_pressed("ui_right") and can_recieve_input:
+		velocity.x += input_map.right * (movement_speed * move_factor)
+		direction = 1
+	elif Input.is_action_pressed("ui_left") and can_recieve_input:
+		velocity.x += input_map.left * (movement_speed * move_factor)
+		direction = -1
+	else:
+		if is_on_floor():
+			velocity.x = lerp(velocity.x, 0, FRICTION)
+		else:
+			velocity.x *= AIR_FRICTION
 
 	update_animation()
 

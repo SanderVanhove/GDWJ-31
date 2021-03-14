@@ -20,11 +20,11 @@ func _physics_process(delta) -> void:
 		if player.item == player.items.BLOWDRYER:
 			velocity.x += ODS.length_dir(1, player.get_node("blowdryer").rotation).x
 
+	# audio management
 	if abs(velocity.x) > 1:
 		if not _audio.playing and is_on_floor():
 			_audio.play()
 		_audio.volume_db = abs(velocity.x) / 10 - 7
-		print(_audio.volume_db)
 	else:
 		_audio.stop()
 
