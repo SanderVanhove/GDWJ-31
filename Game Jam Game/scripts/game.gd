@@ -1,7 +1,7 @@
 extends Node
 
 export(int) var amount_of_levels: int = 5
-export(int, 1) var level_index: int = 1
+export(int) var level_index: int = 1
 
 
 onready var _inventory: Node2D = $inventory
