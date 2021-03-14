@@ -31,4 +31,5 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = "Dialog"
 [connection signal="body_entered" from="." to="." method="_on_dialog_body_entered"]

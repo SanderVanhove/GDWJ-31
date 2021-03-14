@@ -36,10 +36,6 @@ config/name="Game Jam Game"
 run/main_scene="res://scenes/game.tscn"
 config/icon="res://icon.png"
 
-[audio]
-
-default_bus_layout="res://assets/default_bus_layout.tres"
-
 [autoload]
 
 ODS="*res://scripts/ODS_scripts.gd"

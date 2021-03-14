@@ -4,7 +4,7 @@ class_name Player
 # in case you forgot what up is
 const UP = Vector2(0, -1)
 const FRICTION = .25
-const AIR_FRICTION = .98
+const AIR_FRICTION = .99
 
 # exports
 export var movement_speed := 1500
@@ -45,6 +45,7 @@ var item = items.NONE
 
 # direction the player is facing
 var direction = 1
+var travel_direction = 1
 
 # last selected update variable
 var last_selected = gg.selected
@@ -65,7 +66,7 @@ func _process(delta):
 						i.queue_free()
 						current_items.remove(current_items.find(i))
 				var inst = load("res://scenes/cactus.tscn").instance()
-				inst.position = position + Vector2(sign(position.x - get_global_mouse_position().x) * 26, 24)
+				inst.position = position + Vector2(direction * 26, 24)
 				inst.name = "cactus"
 				get_parent().add_child(inst, true)
 				current_items.append(inst)
@@ -98,8 +99,9 @@ func _physics_process(delta):
 
 	# jumping
 	if Input.is_action_just_pressed("ui_up") and can_recieve_input:
-		if is_on_floor():
-			velocity.y += input_map.up * jump_height
+		if can_walk():
+			var height = jump_height if gravity >= 0 else - jump_height
+			velocity.y += input_map.up * height
 			_jump_player.play_random_sound()
 
 	var move_factor = 1
@@ -114,17 +116,17 @@ func _physics_process(delta):
 			if item == items.NONE or item == items.BLOWDRYER:
 				move_factor = 0.01
 
-	if Input.is_action_pressed("ui_right") and can_recieve_input:
-		velocity.x += input_map.right * (movement_speed * move_factor)
-		direction = 1
-	elif Input.is_action_pressed("ui_left") and can_recieve_input:
-		velocity.x += input_map.left * (movement_speed * move_factor)
-		direction = -1
-	else:
-		if is_on_floor():
-			velocity.x = lerp(velocity.x, 0, FRICTION)
+	if can_walk():
+		if Input.is_action_pressed("ui_right") and can_recieve_input:
+			velocity.x += input_map.right * (movement_speed * move_factor)
+			direction = 1
+		elif Input.is_action_pressed("ui_left") and can_recieve_input:
+			velocity.x += input_map.left * (movement_speed * move_factor)
+			direction = -1
 		else:
-			velocity.x *= AIR_FRICTION
+			velocity.x = lerp(velocity.x, 0, FRICTION)
+	else:
+		velocity.x *= AIR_FRICTION
 
 	update_animation()
 
@@ -152,19 +154,22 @@ func _physics_process(delta):
 
 	# determining direction
 	_sprite.flip_h = direction == 1
+	_sprite.flip_v = gravity < 0 and item != items.MAGNET
 	$blowdryer.position.x = 10 * direction
 	$magnet.position.x = 10 * direction
 	$blowdryer/Sprite.flip_h = direction == 1
+
+	travel_direction = 1 if velocity.x > 0 else -1
 
 	velocity = move_and_slide(velocity, UP, false, 4, PI / 4, false)
 
 	handle_footstep_sound()
 
 	position_drop_shadow()
-	was_in_air = not is_on_floor()
+	was_in_air = not can_walk()
 
 func handle_footstep_sound() -> void:
-	if not is_on_floor():
+	if not can_walk():
 		return
 
 	if was_in_air:
@@ -177,7 +182,7 @@ func update_animation() -> void:
 	var animation = "idle"
 
 	if state == states.REGULAR or state == states.NO_GRAVITY:
-		if is_on_floor():
+		if can_walk():
 			if (Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left")):
 				animation = "run"
 
@@ -206,3 +211,15 @@ func _cactus_blow_back(pos):
 	$hurt.interpolate_property(self, "modulate", modulate, Color8(former_r, modulate.g8, modulate.b8, modulate.a8), 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	$hurt.start()
 	_cactus_sting_player.play_random_sound()
+	$cactus_timer.start()
+	can_recieve_input = false
+
+func can_walk() -> bool:
+	if gravity >= 0:
+		return is_on_floor()
+	else:
+		return is_on_ceiling() or item == items.MAGNET
+
+
+func _on_cactus_timer_timeout() -> void:
+	can_recieve_input = true
