@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/player-idle.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8.6237, 21.2385 )
+extents = Vector2( 3.923, 23.866 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 6 )
@@ -70,11 +70,11 @@ region = Rect2( 192, 0, 32, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 224, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="SpriteFrames" id=17]
+[sub_resource type="SpriteFrames" id=18]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
@@ -86,7 +86,7 @@ animations = [ {
 "name": "run",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 18 ) ],
+"frames": [ SubResource( 17 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
@@ -94,9 +94,13 @@ animations = [ {
 
 [node name="player" type="KinematicBody2D"]
 script = ExtResource( 2 )
+movement_speed = null
+gravity = null
+jump_height = null
+max_speed = null
 
 [node name="collision_shape" type="CollisionShape2D" parent="."]
-position = Vector2( 0.105103, 2.83803 )
+position = Vector2( 0.105, 0.099 )
 shape = SubResource( 1 )
 
 [node name="blowdryer" parent="." instance=ExtResource( 3 )]
@@ -112,11 +116,13 @@ cast_to = Vector2( 0, 500 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
-frames = SubResource( 17 )
-animation = "jump"
+frames = SubResource( 18 )
+animation = "run"
+frame = 1
 playing = true
 
 [node name="Dropshadow" type="Sprite" parent="."]
+position = Vector2( 0, 24 )
 scale = Vector2( 0.2, 0.2 )
 z_index = 1
 texture = ExtResource( 5 )

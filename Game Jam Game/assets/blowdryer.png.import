@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hairdryer.png-53494a1b5cf720bde61d7d512fddfe91.stex"
+path="res://.import/blowdryer.png-8d6d6f4a93045d6bdde94dda3d07e40d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/hairdryer.png"
-dest_files=[ "res://.import/hairdryer.png-53494a1b5cf720bde61d7d512fddfe91.stex" ]
+source_file="res://assets/blowdryer.png"
+dest_files=[ "res://.import/blowdryer.png-8d6d6f4a93045d6bdde94dda3d07e40d.stex" ]
 
 [params]
 

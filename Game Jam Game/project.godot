@@ -27,6 +27,7 @@ config/icon="res://icon.png"
 [autoload]
 
 ODS="*res://scripts/ODS_scripts.gd"
+gg="*res://scripts/game_globals.gd"
 
 [display]
 

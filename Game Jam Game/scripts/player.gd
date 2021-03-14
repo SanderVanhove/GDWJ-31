@@ -37,8 +37,32 @@ var item = items.NONE
 # direction the player is facing
 var direction = 1
 
+# last selected update variable
+var last_selected = gg.selected
+var current_items = []
+
 func _ready():
 	starting_position = position
+
+func _process(delta):
+	if gg.selected != last_selected:
+		match gg.selected:
+			1:
+				var inst = load("res://scenes/cactus.tscn").instance()
+				inst.position = position + Vector2(sign(position.x - get_viewport().get_mouse_position().x) * 50, 24)
+				get_parent().add_child(inst)
+				current_items.append(inst)
+			2:
+				var inst = load("res://scenes/skateboard.tscn").instance()
+				if _drop_shadow.position.distance_to(position) > 100:
+					inst.position = position + Vector2(0, 40)
+				get_parent().add_child(inst)
+				current_items.append(inst)
+			3:
+				item = items.BLOWDRYER
+			4:
+				item = items.MAGNET
+		last_selected = gg.selected
 
 func _physics_process(delta):
 	# resetting velocity
