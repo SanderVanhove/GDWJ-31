@@ -1,7 +1,7 @@
 extends Node2D
 class_name Level
 
-signal finish
+signal finished
 
 export var show_tools: bool = true
 

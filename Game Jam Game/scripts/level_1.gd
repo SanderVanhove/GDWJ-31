@@ -3,6 +3,7 @@ extends Level
 
 onready var _timer: Timer = $Timer
 onready var _pop_player: AudioStreamPlayer = $AudioStreamPlayer
+onready var _dialog: Area2D = $dialog
 
 
 func _ready() -> void:
@@ -19,3 +20,7 @@ func _on_dialog_body_entered(body: Node) -> void:
 
 		_pop_player.play()
 		_goal.hide()
+
+		yield(_dialog, "done")
+
+		emit_signal("finished")
