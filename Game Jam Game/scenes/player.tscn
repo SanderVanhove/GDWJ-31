@@ -101,44 +101,44 @@ atlas = ExtResource( 7 )
 region = Rect2( 192, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 32, 32 )
+region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 32, 32 )
+region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 8 )
-region = Rect2( 32, 0, 32, 32 )
+region = Rect2( 96, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 8 )
-region = Rect2( 64, 0, 32, 32 )
+region = Rect2( 128, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 8 )
-region = Rect2( 96, 0, 32, 32 )
+region = Rect2( 160, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 8 )
-region = Rect2( 128, 0, 32, 32 )
+region = Rect2( 192, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 8 )
-region = Rect2( 160, 0, 32, 32 )
+region = Rect2( 224, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 8 )
-region = Rect2( 192, 0, 32, 32 )
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=33]
 atlas = ExtResource( 8 )
-region = Rect2( 224, 0, 32, 32 )
+region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=34]
 animations = [ {
@@ -157,28 +157,24 @@ animations = [ {
 "name": "idle-hold",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 24 ) ],
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "run-hold",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 32 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 25 ) ],
+"frames": [ SubResource( 33 ) ],
 "loop": true,
 "name": "jump-hold",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
-"loop": true,
-"name": "run-hold",
-"speed": 10.0
 } ]
 
 [node name="player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-movement_speed = null
-gravity = null
-jump_height = null
-max_speed = null
 
 [node name="collision_shape" type="CollisionShape2D" parent="."]
 position = Vector2( 0.105, 0.099 )
@@ -199,6 +195,7 @@ cast_to = Vector2( 0, 500 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 34 )
 animation = "idle-hold"
+frame = 5
 playing = true
 
 [node name="Dropshadow" type="Sprite" parent="."]

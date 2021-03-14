@@ -82,8 +82,10 @@ func _physics_process(delta):
 				# left and right movement
 			if Input.is_action_pressed("ui_right"):
 				velocity.x += input_map.right * movement_speed * delta
+				direction = 1
 			elif Input.is_action_pressed("ui_left"):
 				velocity.x += input_map.left * movement_speed * delta
+				direction = -1
 			else:
 				if is_on_floor():
 					velocity.x = lerp(velocity.x, 0, FRICTION)
@@ -96,8 +98,10 @@ func _physics_process(delta):
 
 			if Input.is_action_pressed("ui_right"):
 				velocity.x += input_map.right * (movement_speed * move_factor)
+				direction = 1
 			elif Input.is_action_pressed("ui_left"):
 				velocity.x += input_map.left * (movement_speed * move_factor)
+				direction = -1
 			else:
 				if is_on_floor():
 					velocity.x = lerp(velocity.x, 0, FRICTION)
@@ -123,8 +127,9 @@ func _physics_process(delta):
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 
 	# determining direction
-	direction = -1 if velocity.x < 0 else 1
-	_sprite.flip_h = velocity.x > 0
+	_sprite.flip_h = direction == 1
+	$blowdryer.position.x = 10 * direction
+	$magnet.position.x = 10 * direction
 
 	velocity = move_and_slide(velocity, UP, false, 4, PI / 4, false)
 
