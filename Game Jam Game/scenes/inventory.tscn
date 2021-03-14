@@ -95,3 +95,6 @@ scale = Vector2( 1.23437, 1.23437 )
 texture = ExtResource( 2 )
 
 [node name="item_anim" type="Tween" parent="."]
+
+[node name="ItemCooldown" type="Timer" parent="."]
+[connection signal="timeout" from="ItemCooldown" to="." method="_on_ItemCooldown_timeout"]

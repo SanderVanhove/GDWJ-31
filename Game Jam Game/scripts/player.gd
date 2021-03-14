@@ -62,6 +62,8 @@ func _process(delta):
 				item = items.BLOWDRYER
 			4:
 				item = items.MAGNET
+			0:
+				item = items.NONE
 		last_selected = gg.selected
 
 func _physics_process(delta):
