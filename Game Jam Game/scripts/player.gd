@@ -48,15 +48,26 @@ func _process(delta):
 	if gg.selected != last_selected:
 		match gg.selected:
 			1:
+				for i in current_items:
+					if i.name.substr(0, 6) == "cactus":
+						i.queue_free()
+						current_items.remove(current_items.find(i))
 				var inst = load("res://scenes/cactus.tscn").instance()
-				inst.position = position + Vector2(sign(position.x - get_viewport().get_mouse_position().x) * 50, 24)
-				get_parent().add_child(inst)
+				inst.position = position + Vector2(sign(position.x - get_global_mouse_position().x) * 26, 24)
+				inst.name = "cactus"
+				get_parent().add_child(inst, true)
 				current_items.append(inst)
 			2:
+				for i in current_items:
+					if i.name.substr(0, 10) == "skateboard":
+						i.queue_free()
+						current_items.remove(current_items.find(i))
 				var inst = load("res://scenes/skateboard.tscn").instance()
-				if _drop_shadow.position.distance_to(position) > 100:
-					inst.position = position + Vector2(0, 40)
-				get_parent().add_child(inst)
+				if _drop_shadow.position.distance_to(position) > 50:
+					inst.position = position + Vector2(0, 50)
+				inst.name = "skateboard"
+				inst.velocity = velocity
+				get_parent().add_child(inst, true)
 				current_items.append(inst)
 			3:
 				item = items.BLOWDRYER

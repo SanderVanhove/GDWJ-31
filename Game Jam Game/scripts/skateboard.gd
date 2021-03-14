@@ -22,7 +22,6 @@ func _physics_process(delta) -> void:
 
 	velocity.x = lerp(velocity.x, 0, FRICTION)
 
-
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body as Player:
 		if abs(body.velocity.x) > abs(velocity.x):
@@ -30,7 +29,6 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		else:
 			velocity.x = MIN_SPEED * body.direction
 		player = body
-
 
 func _on_Area2D_body_exited(body):
 	if body as Player:
