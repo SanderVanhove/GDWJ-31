@@ -8,13 +8,13 @@
 [ext_resource path="res://assets/sound/pop1.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 96 )
+extents = Vector2( 16, 96 )
 
 [node name="room" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
 [node name="player" parent="." index="0"]
-position = Vector2( 64, 320 )
+position = Vector2( 496, 192 )
 
 [node name="spike2" parent="." index="1" instance=ExtResource( 2 )]
 position = Vector2( 416, 352 )
@@ -33,13 +33,12 @@ tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 1, -65535, 0, 1, -65534, 0, 1, -6
 position = Vector2( 576, 224 )
 
 [node name="dialog" parent="." index="6" instance=ExtResource( 4 )]
-position = Vector2( 448, 224 )
+position = Vector2( 544, 128 )
 text = [ "Not so fast! You want to reach that goal, huh? Well, first I want to play a game.
 Let's take you to a real level, hahaha!" ]
 audio_stream = [ ExtResource( 5 ) ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dialog" index="2"]
-position = Vector2( 32, -96 )
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="." index="7"]

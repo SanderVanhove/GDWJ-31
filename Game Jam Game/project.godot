@@ -33,8 +33,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Game Jam Game"
-run/main_scene="res://game.tscn"
+run/main_scene="res://scenes/game.tscn"
 config/icon="res://icon.png"
+
+[audio]
+
+default_bus_layout="res://assets/default_bus_layout.tres"
 
 [autoload]
 

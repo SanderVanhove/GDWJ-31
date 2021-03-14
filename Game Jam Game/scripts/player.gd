@@ -201,5 +201,8 @@ func _die():
 func _cactus_blow_back(pos):
 	velocity.x = sign(position.x - pos.x) * 200
 	velocity.y = -1 * jump_height
-
+	var former_r = modulate.r8
+	modulate = Color8(400, modulate.g8, modulate.b8, modulate.a8)
+	$hurt.interpolate_property(self, "modulate", modulate, Color8(former_r, modulate.g8, modulate.b8, modulate.a8), 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	$hurt.start()
 	_cactus_sting_player.play_random_sound()
