@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://scripts/player.gd"
+}, {
+"base": "AudioStreamPlayer2D",
+"class": "RandomSoundPlayer",
+"language": "GDScript",
+"path": "res://scripts/random_sound_player.gd"
 } ]
 _global_script_class_icons={
-"Player": ""
+"Player": "",
+"RandomSoundPlayer": ""
 }
 
 [application]

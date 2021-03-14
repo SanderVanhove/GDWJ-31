@@ -27,7 +27,7 @@ func _input(event):
 		for i in range(1, 5):
 			if i != gg.selected:
 				for slot in slot(i):
-					change_slot_alpha(slot, 0.5)
+					change_slot_alpha(slot, 0.7)
 			else:
 				for slot in slot(i):
 					change_slot_alpha(slot, 1)
@@ -52,6 +52,6 @@ func slot(key: int):
 func _on_ItemCooldown_timeout() -> void:
 	if gg.selected == 1 or gg.selected == 2:
 		for slot in slot(gg.selected):
-			change_slot_alpha(slot, 0.5)
+			change_slot_alpha(slot, 0.7)
 		$item_anim.start()
 		gg.selected = 0

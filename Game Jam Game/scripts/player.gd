@@ -15,6 +15,13 @@ export var max_speed := 200
 onready var _sprite: AnimatedSprite = $AnimatedSprite
 onready var _raycast: RayCast2D = $RayCast2D
 onready var _drop_shadow: Sprite = $Dropshadow
+onready var _jump_player: RandomSoundPlayer = $jump_player
+onready var _damage_player: RandomSoundPlayer = $damage_player
+onready var _footstep_player: RandomSoundPlayer = $footstep_player
+onready var _footstep_timer: Timer = $footstep_timer
+onready var _land_player: RandomSoundPlayer = $land_player
+onready var _pop_player: RandomSoundPlayer = $pop_player
+onready var _cactus_sting_player: RandomSoundPlayer = $cactus_sting_player
 
 enum states {REGULAR, NO_GRAVITY}
 enum items {NONE, MAGNET, BLOWDRYER}
@@ -41,6 +48,9 @@ var direction = 1
 var last_selected = gg.selected
 var current_items = []
 
+# wether the player was in the air last update
+var was_in_air: bool = true
+
 func _ready():
 	starting_position = position
 
@@ -57,6 +67,8 @@ func _process(delta):
 				inst.name = "cactus"
 				get_parent().add_child(inst, true)
 				current_items.append(inst)
+
+				_pop_player.play_random_sound()
 			2:
 				for i in current_items:
 					if i.name.substr(0, 10) == "skateboard":
@@ -69,6 +81,8 @@ func _process(delta):
 				inst.velocity = velocity
 				get_parent().add_child(inst, true)
 				current_items.append(inst)
+
+				_pop_player.play_random_sound()
 			3:
 				item = items.BLOWDRYER
 			4:
@@ -84,6 +98,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_up"):
 		if is_on_floor():
 			velocity.y += input_map.up * jump_height
+			_jump_player.play_random_sound()
 
 	# STATE MACHINEEEEE YOOOOOOOOOOOOOOOOOOOOOOOOOO
 	match state:
@@ -123,16 +138,20 @@ func _physics_process(delta):
 	match item:
 		items.NONE:
 			$blowdryer.hide()
+			$blowdryer.turn_off()
 			$magnet.hide()
 		items.MAGNET:
 			$blowdryer.hide()
+			$blowdryer.turn_off()
 			$magnet.show()
 			velocity.y += 50
 		items.BLOWDRYER:
 			$blowdryer.show()
+			$blowdryer.turn_on()
 			$magnet.hide()
 #			if state != states.REGULAR:
-			velocity += ODS.length_dir(1, $blowdryer.rotation)
+			var rot_offset = PI if direction == 1 else 0
+			velocity += ODS.length_dir(1, $blowdryer.rotation + rot_offset)
 
 	# clamping speed
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
@@ -141,10 +160,24 @@ func _physics_process(delta):
 	_sprite.flip_h = direction == 1
 	$blowdryer.position.x = 10 * direction
 	$magnet.position.x = 10 * direction
+	$blowdryer/Sprite.flip_h = direction == 1
 
 	velocity = move_and_slide(velocity, UP, false, 4, PI / 4, false)
 
+	handle_footstep_sound()
+
 	position_drop_shadow()
+	was_in_air = not is_on_floor()
+
+func handle_footstep_sound() -> void:
+	if not is_on_floor():
+		return
+
+	if was_in_air:
+		_land_player.play_random_sound()
+	elif (Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left")) and not _footstep_timer.time_left:
+		_footstep_player.play_random_sound()
+		_footstep_timer.start()
 
 func update_animation() -> void:
 	var animation = "idle"
@@ -169,7 +202,10 @@ func _die():
 	velocity.y = 0
 	# death animation/particles or whatever
 	position = starting_position
+	_damage_player.play_random_sound()
 
 func _cactus_blow_back(pos):
 	velocity.x = sign(position.x - pos.x) * 200
 	velocity.y = -1 * jump_height
+
+	_cactus_sting_player.play_random_sound()

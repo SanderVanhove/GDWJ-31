@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/skateboard.png" type="Texture" id=1]
 [ext_resource path="res://scripts/skateboard.gd" type="Script" id=2]
+[ext_resource path="res://assets/sound/skateboard.wav" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.0146, 1.02567 )
@@ -19,5 +20,9 @@ polygon = PoolVector2Array( 14.9878, 1.01516, 8.46698, 8.08814, 6.4068, 5.09153,
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
+
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+bus = "Sound"
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

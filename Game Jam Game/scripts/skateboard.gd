@@ -5,6 +5,8 @@ const FRICTION: float = 0.001
 const MAX_SPEED: float = 200.0
 const MIN_SPEED: float = 50.0
 
+onready var _audio: AudioStreamPlayer2D = $audio
+
 var velocity: Vector2 = Vector2.ZERO
 
 var player = null
@@ -17,6 +19,14 @@ func _physics_process(delta) -> void:
 	if player != null:
 		if player.item == player.items.BLOWDRYER:
 			velocity.x += ODS.length_dir(1, player.get_node("blowdryer").rotation).x
+
+	if abs(velocity.x) > 1:
+		if not _audio.playing and is_on_floor():
+			_audio.play()
+		_audio.volume_db = abs(velocity.x) / 10 - 7
+		print(_audio.volume_db)
+	else:
+		_audio.stop()
 
 	velocity = move_and_slide(velocity, Vector2.UP, false, 4, PI / 4, false)
 

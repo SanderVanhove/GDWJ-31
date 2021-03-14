@@ -1,6 +1,11 @@
 extends Node2D
 
 
+onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
+
 func _process(delta: float) -> void:
-	var mouse_pos: Vector2 = get_global_mouse_position()
-	rotate(get_angle_to(mouse_pos) - PI/2)
+	if visible and not audio.playing:
+		audio.play()
+	elif not visible:
+		audio.stop()

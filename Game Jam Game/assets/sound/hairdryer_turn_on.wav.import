@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hairdryer_turn_on.wav-86f68ac71ed7f2af5e93e6a7d25f11c7.sample"
+
+[deps]
+
+source_file="res://assets/sound/hairdryer_turn_on.wav"
+dest_files=[ "res://.import/hairdryer_turn_on.wav-86f68ac71ed7f2af5e93e6a7d25f11c7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
