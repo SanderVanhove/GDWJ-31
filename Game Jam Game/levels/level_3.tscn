@@ -8,7 +8,7 @@
 script = ExtResource( 4 )
 
 [node name="player" parent="." index="0"]
-position = Vector2( 64, 320 )
+position = Vector2( 64, 328 )
 
 [node name="spike" parent="." index="1" instance=ExtResource( 1 )]
 position = Vector2( 224, 256 )

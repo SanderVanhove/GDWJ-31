@@ -26,7 +26,7 @@ func _on_VoiceOver_body_entered(body: Node) -> void:
 	for i in range(len(text)):
 		_label.text = text[i]
 		_voice_audio.stream = audio_stream[i]
-
+		gg.entity_active = true
 		_voice_audio.play()
 
 		_tween.interpolate_property(_label, "modulate:a", 0, 1, .5)

@@ -51,3 +51,5 @@ initial_velocity = 5.0
 linear_accel = 10.0
 scale_amount = 4.0
 color = Color( 0, 0.172549, 0.352941, 0.596078 )
+
+[node name="active" type="Tween" parent="PathFollow2D/graphics"]
