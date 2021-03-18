@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Retro Gaming.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://menus/end_credits.gd" type="Script" id=2]
+[ext_resource path="res://scripts/end_credits.gd" type="Script" id=2]
+[ext_resource path="res://assets/music.wav" type="AudioStream" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -34,9 +35,9 @@ anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 405.0
-margin_top = 358.0
+margin_top = 311.0
 margin_right = 1094.0
-margin_bottom = 520.0
+margin_bottom = 567.0
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
 margin_right = 689.0
@@ -73,5 +74,24 @@ custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0.678431, 0.862745, 1 )
 text = "@SanderVhove"
 align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 166.0
+margin_right = 689.0
+margin_bottom = 256.0
+custom_constants/margin_top = 60
+
+[node name="Label5" type="Label" parent="CenterContainer/VBoxContainer/MarginContainer"]
+margin_top = 60.0
+margin_right = 689.0
+margin_bottom = 90.0
+custom_fonts/font = SubResource( 2 )
+text = "(You are now allowed to jam to the music)"
+align = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -5.0
+autoplay = true
 [connection signal="gui_input" from="CenterContainer/VBoxContainer/Label3" to="." method="_on_Label3_gui_input"]
 [connection signal="gui_input" from="CenterContainer/VBoxContainer/Label4" to="." method="_on_Label4_gui_input"]

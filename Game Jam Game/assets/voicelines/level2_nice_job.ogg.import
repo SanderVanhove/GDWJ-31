@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/level2_nice_job.ogg-90bcd571d8eecc323276fdc888fe7b15.oggstr"
+
+[deps]
+
+source_file="res://assets/voicelines/level2_nice_job.ogg"
+dest_files=[ "res://.import/level2_nice_job.ogg-90bcd571d8eecc323276fdc888fe7b15.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
