@@ -91,7 +91,7 @@ align = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -5.0
+volume_db = -15.0
 autoplay = true
 [connection signal="gui_input" from="CenterContainer/VBoxContainer/Label3" to="." method="_on_Label3_gui_input"]
 [connection signal="gui_input" from="CenterContainer/VBoxContainer/Label4" to="." method="_on_Label4_gui_input"]
