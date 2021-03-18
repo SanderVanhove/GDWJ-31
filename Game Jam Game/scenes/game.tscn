@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/the_entity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/inventory.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/background.png" type="Texture" id=3]
 [ext_resource path="res://scripts/game.gd" type="Script" id=4]
@@ -23,5 +22,3 @@ zoom = Vector2( 0.4, 0.4 )
 
 [node name="inventory" parent="." instance=ExtResource( 2 )]
 position = Vector2( 29, 25 )
-
-[node name="the_entity" parent="." instance=ExtResource( 1 )]
