@@ -6,6 +6,7 @@ func _process(delta: float) -> void:
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var rot_offset: float = 0 if $Sprite.flip_h else PI
 	rotate(get_angle_to(mouse_pos) + rot_offset)
+	$Sprite/CPUParticles2D.rotation_degrees = 180 if $Sprite.flip_h else 0
 
 func turn_on() -> void:
 	if is_on:
