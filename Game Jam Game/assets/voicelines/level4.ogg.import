@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/level4.ogg-77815a38f34745913bbdbbe180ddf741.oggstr"
+
+[deps]
+
+source_file="res://assets/voicelines/level4.ogg"
+dest_files=[ "res://.import/level4.ogg-77815a38f34745913bbdbbe180ddf741.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
