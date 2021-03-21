@@ -99,7 +99,7 @@ func _physics_process(delta):
 
 	# jumping
 	if Input.is_action_just_pressed("ui_up") and can_recieve_input:
-		if can_walk():
+		if can_walk() and state == states.REGULAR:
 			var height = jump_height if gravity >= 0 else - jump_height
 			velocity.y += input_map.up * height
 			_jump_player.play_random_sound()

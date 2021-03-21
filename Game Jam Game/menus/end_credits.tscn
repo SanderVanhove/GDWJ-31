@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/Retro Gaming.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/end_credits.gd" type="Script" id=2]
 [ext_resource path="res://assets/music.wav" type="AudioStream" id=3]
+[ext_resource path="res://scenes/dialog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/voicelines/end_credits_ramble1.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/voicelines/end_credits_ramble2.ogg" type="AudioStream" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -32,6 +35,9 @@ color = Color( 0.027451, 0.0470588, 0.113725, 1 )
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 405.0
@@ -93,5 +99,9 @@ align = 1
 stream = ExtResource( 3 )
 volume_db = -15.0
 autoplay = true
+
+[node name="dialog" parent="." instance=ExtResource( 4 )]
+text = [ "", "" ]
+audio_stream = [ ExtResource( 5 ), ExtResource( 6 ) ]
 [connection signal="gui_input" from="CenterContainer/VBoxContainer/Label3" to="." method="_on_Label3_gui_input"]
 [connection signal="gui_input" from="CenterContainer/VBoxContainer/Label4" to="." method="_on_Label4_gui_input"]

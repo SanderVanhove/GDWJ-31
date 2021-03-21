@@ -11,5 +11,5 @@ dest_files=[ "res://.import/level2_good_luck.ogg-de73a92ada88f51ae02f28e29dfdb37
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

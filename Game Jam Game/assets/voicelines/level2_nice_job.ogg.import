@@ -11,5 +11,5 @@ dest_files=[ "res://.import/level2_nice_job.ogg-90bcd571d8eecc323276fdc888fe7b15
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

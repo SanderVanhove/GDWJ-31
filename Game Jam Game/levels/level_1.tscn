@@ -218,7 +218,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 } ]
 0/z_index = 0
 
-[node name="room" instance=ExtResource( 1 )]
+[node name="level_1" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
 [node name="player" parent="." index="0"]
@@ -242,8 +242,9 @@ position = Vector2( 576, 224 )
 
 [node name="dialog" parent="." index="6" instance=ExtResource( 4 )]
 position = Vector2( 544, 128 )
-text = [ "Not so fast! You want to reach that goal, huh? Well, first I want to play a game.
-Let's take you to a real level, hahaha!" ]
+text = [ "Whoa whoa whoa, slow your roll there!
+You want to reach that goal, huh? Well, first I want to play a game. Let's take you to a real level, shall we?
+" ]
 audio_stream = [ ExtResource( 5 ) ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dialog" index="2"]

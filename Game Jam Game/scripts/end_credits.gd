@@ -1,6 +1,7 @@
 extends Control
 
-
+func _ready():
+	$dialog.play()
 
 func _on_Label3_gui_input(event: InputEvent) -> void:
 	if event as InputEventMouseButton and event.is_pressed():

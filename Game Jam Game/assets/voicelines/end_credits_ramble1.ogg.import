@@ -11,5 +11,5 @@ dest_files=[ "res://.import/end_credits_ramble1.ogg-68409536207aa06dd8b2c8874675
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

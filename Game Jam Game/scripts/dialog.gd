@@ -17,6 +17,9 @@ func _on_dialog_body_entered(body: Node) -> void:
 	if not body as Player:
 		return
 
+	play()
+
+func play():
 	if playing:
 		return
 
